@@ -9,13 +9,16 @@ clean:
 	rm receiver_udp
 
 valgrindSender:
-	valgrind --leak-check=yes --track-origins=yes ./sender_udp 127.0.0.1 1024 test
+	valgrind --leak-check=full --track-origins=yes --show-reachable=yes ./sender_udp 127.0.0.1 1024 test
     
 testSender:
 	./sender_udp 127.0.0.1 1024 test
+    
+testSenderBig:
+	./sender_udp 127.0.0.1 1024 test5
 
 valgrindReceiver:
-	valgrind --leak-check=yes --track-origins=yes ./receiver_udp 1024
+	valgrind --leak-check=full --track-origins=yes --show-reachable=yes ./receiver_udp 1024
 
 testReceiver:
 	./receiver_udp 1024

@@ -7,7 +7,7 @@
  * @brief A sender using UDP protocol.
  *
  * @author Dennis Altenhoff (daltenhoff@uni-osnabrueck.de)
- * @author Till Grenzdörffer(tgrenzdoerff@uni-osnabrueck.de)
+ * @author Till Grenzdoerffer(tgrenzdoerff@uni-osnabrueck.de)
  *
  */
 
@@ -26,6 +26,14 @@
 // Maximum package size
 int MAX = 1459;
 
+
+/** 
+ * @brief Print filedata (as in the python script)
+ * 
+ * @param fileInfo fileInfo to be printed
+ * 
+ */
+void printFileInfo(char* filename, unsigned int fsize);
 
 /**
  * @brief Sends identification package according to protocol

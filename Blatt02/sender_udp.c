@@ -1,5 +1,11 @@
 #include "sender_udp.h"
 
+void printFileInfo(char* filename, unsigned int fsize){
+    // Print filedata (as in the python script)
+    printf(filename_str, filename);
+    printf(filesize_str, fsize);
+}
+
 void sendIdentificationPackage(int sender, struct sockaddr_in to, char* filename, unsigned short namelen, unsigned int fsize){
     
     // Calculate space needed for IdenticationPackage and allocate space for it
@@ -26,8 +32,12 @@ void sendIdentificationPackage(int sender, struct sockaddr_in to, char* filename
 	}
     
     // Add converted filesize to package
-    fsize = htonl(fsize);
-    memcpy(identPackage+3+namelen,&fsize,sizeof(unsigned int));
+    unsigned int convFsize = htonl(fsize);
+    memcpy(identPackage+3+namelen,&convFsize,sizeof(unsigned int));
+    
+    // Print filedata (as in the python script)
+    printf("- File to be sent: -\n");
+    printFileInfo(filename, fsize);
     
     // Send identification package
 	int err = sendto(sender,identPackage,len,0,(struct sockaddr*) &to,sizeof(struct sockaddr_in));
@@ -185,6 +195,10 @@ void sendSHA1(int sender, struct sockaddr_in to, char* SHA1Sum){
         package[i+1] = SHA1Sum[i];
     }
     
+    // Print SHA1-hash (as in the python script)
+    unsigned char* SHA1SumString = create_sha1_string(SHA1Sum);
+    printf(sender_sha1, SHA1SumString);
+    
     // Send package
     int err = sendto(sender, package, 21, 0,  (struct sockaddr*) &to, sizeof(struct sockaddr_in));
     // And react to outcome
@@ -194,6 +208,7 @@ void sendSHA1(int sender, struct sockaddr_in to, char* SHA1Sum){
     }
     
     // Free allocated space
+    free(SHA1SumString);
     free(package);
 }
 
@@ -241,9 +256,11 @@ void recConfirmation(int sender, struct sockaddr_in to){
 
         // And check whether its right or not
         if(sha1_result == SHA1_CMP_OK){
+            // Print SHA1OK (as in the python script)
             printf(SHA1_OK);
         }else{
             if(sha1_result == SHA1_CMP_ERROR){
+                // Print SHA1ERROR (as in the python script)
                 printf(SHA1_ERROR);
             }
         }
