@@ -112,7 +112,7 @@ void writeDataToFile(char* package, struct filedata* fileInfo, FILE* fp, SHA_CTX
 void checkSHAAndSendReply(struct sockaddr_in receiver, int fd, char* package, SHA_CTX *ctx){
 
     // Allocate space for checksum
-    unsigned char* checksum = malloc(160);
+    unsigned char* checksum = malloc(20);
     // Check for right allocation
     if(checksum == NULL){
         printf(malloc_error);
@@ -135,10 +135,6 @@ void checkSHAAndSendReply(struct sockaddr_in receiver, int fd, char* package, SH
     }
     char* received_checksum_string;
     received_checksum_string = create_sha1_string(received_checksum);
-
-    printf(checksum_string);printf("\n");
-    printf(received_checksum_string);printf("\n");
-
 
     char* sha1Result = malloc(2);
     sha1Result[0] = SHA1_CMP_T;
