@@ -113,7 +113,7 @@ void writeDataToFile(char* package, struct filedata* fileInfo, FILE* fp, SHA_CTX
     // Calculate how much to write
     int toWrite;
     if(fileInfo->fsize>MAX){
-        toWrite = MAX;
+        toWrite = MAX-5;
     }else{
         toWrite = fileInfo->fsize;
     }
