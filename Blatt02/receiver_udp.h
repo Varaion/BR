@@ -7,7 +7,7 @@
  * @brief A receiver using UDP protocol.
  *
  * @author Dennis Altenhoff (daltenhoff@uni-osnabrueck.de)
- * @author Till Grenzdörffer(tgrenzdoerff@uni-osnabrueck.de)
+ * @author Till Grenzdï¿½rffer(tgrenzdoerff@uni-osnabrueck.de)
  *
  */
 
@@ -37,9 +37,9 @@ struct filedata{
 struct filedata* receiveIdentificationPackage(struct sockaddr_in receiver, int fd);
 FILE* createFile(char* filename);
 SHA_CTX initSHA1();
-void writeDataToFile(char* package, struct filedata* fileInfo, FILE* fp, SHA_CTX ctx, int seqNr);
-void checkSHAAndSendReply(struct sockaddr_in receiver, int fd, char* package, SHA_CTX ctx);
-int receiveOtherPackages(struct sockaddr_in receiver, int fd, struct filedata* fileInfo, FILE* fp, SHA_CTX ctx, int seqNr);
+void writeDataToFile(char* package, struct filedata* fileInfo, FILE* fp, SHA_CTX *ctx, int seqNr);
+void checkSHAAndSendReply(struct sockaddr_in receiver, int fd, char* package, SHA_CTX *ctx);
+int receiveOtherPackages(struct sockaddr_in receiver, int fd, struct filedata* fileInfo, FILE* fp, SHA_CTX *ctx, int seqNr);
 void receiveFile(struct sockaddr_in receiver, int fd);
 in_port_t checkPort(int portNum);
 
